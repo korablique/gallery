@@ -3,8 +3,8 @@ package com.example.korablique.catsearch;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.widget.Toast;
 
 import com.example.korablique.catsearch.imagesearch.ImageInfo;
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.images_recycler_view);
         recyclerView.setHasFixedSize(true);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, RecyclerView.VERTICAL);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         final ImagesAdapter adapter = new ImagesAdapter(this);
         recyclerView.setAdapter(adapter);

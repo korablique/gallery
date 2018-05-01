@@ -3,6 +3,9 @@ package com.example.korablique.catsearch;
 import android.app.Application;
 
 import com.example.korablique.catsearch.imagesearch.BingApi;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
+import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -23,6 +26,13 @@ public class CatSearchApplication extends Application {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         bingApi = retrofit.create(BingApi.class);
+
+        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
+                .setProgressiveJpegConfig(new SimpleProgressiveJpegConfig())
+                .setResizeAndRotateEnabledForNetwork(true)
+                .setDownsampleEnabled(true)
+                .build();
+        Fresco.initialize(this, config);
     }
 
     public static BingApi getApi() {

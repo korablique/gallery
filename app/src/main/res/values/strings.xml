@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CatSearch</string>
+    <string name="image_number">%d из %d</string>
 </resources>
