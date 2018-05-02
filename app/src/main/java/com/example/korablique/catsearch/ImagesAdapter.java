@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.korablique.catsearch.imagesearch.ImageInfo;
+import com.facebook.drawee.drawable.ScalingUtils;
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
@@ -42,11 +44,16 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImageViewHolder> {
         SimpleDraweeView draweeView = item.findViewById(R.id.image_view);
         draweeView.setImageURI(uri);
 
+        GenericDraweeHierarchyBuilder hierarchyBuilder = GenericDraweeHierarchyBuilder.newInstance(context.getResources())
+                .setFailureImage(R.drawable.ic_failure_image, ScalingUtils.ScaleType.FIT_CENTER)
+                .setProgressBarImage(R.drawable.ic_loading_white);
+
         draweeView.setOnClickListener((view) -> {
             View overlayView = LayoutInflater.from(context).inflate(R.layout.overlay_view_layout, null);
             new ImageViewer.Builder(context, fullImagesURLs)
                     .setStartPosition(position)
                     .hideStatusBar(false)
+                    .setCustomDraweeHierarchyBuilder(hierarchyBuilder)
                     .setImageChangeListener(getImageChangeListener(overlayView))
                     .setOverlayView(overlayView)
                     .show();
