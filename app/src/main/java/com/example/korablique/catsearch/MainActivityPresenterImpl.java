@@ -25,6 +25,7 @@ public class MainActivityPresenterImpl implements MainActivityPresenter {
     @Override
     public void onActivityCreate(Bundle savedInstanceState) {
         view.initActivity();
+        view.showProgressBar();
 
         if (savedInstanceState == null) {
             model.requestImages(new Callback<JSONResponse>() {
@@ -33,6 +34,7 @@ public class MainActivityPresenterImpl implements MainActivityPresenter {
                     if (response.body() != null) {
                         List<ImageInfo> imageInfoList = response.body().getImageInfoList();
                         view.showImages(imageInfoList);
+                        view.hideProgressBar();
                     }
                 }
 
@@ -42,6 +44,7 @@ public class MainActivityPresenterImpl implements MainActivityPresenter {
                 }
             });
         } else {
+            view.hideProgressBar();
             view.restoreState(savedInstanceState);
         }
     }

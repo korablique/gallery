@@ -58,6 +58,16 @@ public class MainActivityViewImpl implements MainActivityView {
     }
 
     @Override
+    public void showProgressBar() {
+        activity.findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        activity.findViewById(R.id.progress_bar).setVisibility(View.GONE);
+    }
+
+    @Override
     public void showImages(List<ImageInfo> imageInfoList) {
         adapter.addItems(imageInfoList);
     }

@@ -10,6 +10,8 @@ import java.util.List;
 public interface MainActivityView {
     void initActivity();
     void displayError(String message);
+    void showProgressBar();
+    void hideProgressBar();
     void showImages(List<ImageInfo> imageInfoList);
     void destroy();
     void recordState(Bundle outState);
