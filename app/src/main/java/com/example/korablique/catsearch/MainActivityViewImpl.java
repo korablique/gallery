@@ -1,31 +1,107 @@
 package com.example.korablique.catsearch;
 
 import android.app.Activity;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.korablique.catsearch.imagesearch.ImageInfo;
+import com.facebook.drawee.drawable.ScalingUtils;
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
+import com.stfalcon.frescoimageviewer.ImageViewer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivityViewImpl implements MainActivityView {
+    private static final String CURRENT_OPENED_IMAGE_POSITION = "CURRENT_OPENED_IMAGE_POSITION";
+    private static final String IMAGE_INFO_LIST = "IMAGE_INFO_LIST";
     private Activity activity;
+    private ImagesAdapter adapter;
+    @Nullable
+    private Integer currentOpenedImagePosition;
+    private FullscreenImageDisplayer imageDisplayer;
 
     public MainActivityViewImpl(Activity activity) {
         this.activity = activity;
     }
 
     @Override
-    public void initActivity(RecyclerView.Adapter adapter) {
+    public void initActivity() {
         activity.setContentView(R.layout.activity_main);
 
         RecyclerView recyclerView = activity.findViewById(R.id.images_recycler_view);
         recyclerView.setHasFixedSize(true);
         GridLayoutManager layoutManager = new GridLayoutManager(activity, 2, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
+
+        GenericDraweeHierarchyBuilder hierarchyBuilder = GenericDraweeHierarchyBuilder.newInstance(activity.getResources())
+                .setFailureImage(R.drawable.ic_failure_image, ScalingUtils.ScaleType.FIT_CENTER)
+                .setProgressBarImage(R.drawable.ic_loading_white);
+        View overlayView = LayoutInflater.from(activity).inflate(R.layout.overlay_view_layout, null);
+        imageDisplayer = new FullscreenImageDisplayer(
+                activity, hierarchyBuilder, getImageChangeListener(overlayView), getOnDismissListener(), overlayView);
+
+        adapter = new ImagesAdapter(imageDisplayer);
         recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void displayError(String message) {
         Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showImages(List<ImageInfo> imageInfoList) {
+        adapter.addItems(imageInfoList);
+    }
+
+    private void displayFullscreenImages(int position) {
+        List<String> imagesURLs = new ArrayList<>();
+        for (ImageInfo imageInfo : adapter.getImageInfoList()) {
+            imagesURLs.add(imageInfo.getContentUrl());
+        }
+        imageDisplayer.display(imagesURLs, position);
+    }
+
+    @Override
+    public void destroy() {
+        imageDisplayer.destroy();
+    }
+
+    @Override
+    public void recordState(Bundle outState) {
+        if (currentOpenedImagePosition != null) {
+            outState.putInt(CURRENT_OPENED_IMAGE_POSITION, currentOpenedImagePosition);
+        }
+        outState.putParcelableArrayList(IMAGE_INFO_LIST, new ArrayList<>(adapter.getImageInfoList()));
+    }
+
+    @Override
+    public void restoreState(Bundle savedState) {
+        adapter.addItems(savedState.getParcelableArrayList(IMAGE_INFO_LIST));
+        if (savedState.containsKey(CURRENT_OPENED_IMAGE_POSITION)) {
+            displayFullscreenImages(savedState.getInt(CURRENT_OPENED_IMAGE_POSITION));
+        }
+    }
+
+    private ImageViewer.OnImageChangeListener getImageChangeListener(View overlayView) {
+        return (position) -> {
+            currentOpenedImagePosition = position;
+            ((TextView) overlayView.findViewById(R.id.image_number_textview))
+                    .setText(activity.getString(R.string.image_number, position + 1, adapter.getItemCount()));
+        };
+    }
+
+    private ImageViewer.OnDismissListener getOnDismissListener() {
+        return () -> {
+            currentOpenedImagePosition = null;
+        };
     }
 }

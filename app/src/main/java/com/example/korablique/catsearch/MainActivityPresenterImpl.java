@@ -1,7 +1,7 @@
 package com.example.korablique.catsearch;
 
 
-import android.app.Activity;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.example.korablique.catsearch.imagesearch.ImageInfo;
@@ -16,7 +16,6 @@ import retrofit2.Response;
 public class MainActivityPresenterImpl implements MainActivityPresenter {
     private MainActivityModel model;
     private MainActivityView view;
-    private ImagesAdapter adapter;
 
     public MainActivityPresenterImpl(MainActivityModel model, MainActivityView view) {
         this.model = model;
@@ -24,23 +23,36 @@ public class MainActivityPresenterImpl implements MainActivityPresenter {
     }
 
     @Override
-    public void onActivityCreate(Activity activity) {
-        adapter = new ImagesAdapter(activity);
-        view.initActivity(adapter);
+    public void onActivityCreate(Bundle savedInstanceState) {
+        view.initActivity();
 
-        model.requestImages(new Callback<JSONResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<JSONResponse> call, @NonNull Response<JSONResponse> response) {
-                if (response.body() != null) {
-                    List<ImageInfo> imageInfoList = response.body().getImageInfoList();
-                    adapter.addItems(imageInfoList);
+        if (savedInstanceState == null) {
+            model.requestImages(new Callback<JSONResponse>() {
+                @Override
+                public void onResponse(@NonNull Call<JSONResponse> call, @NonNull Response<JSONResponse> response) {
+                    if (response.body() != null) {
+                        List<ImageInfo> imageInfoList = response.body().getImageInfoList();
+                        view.showImages(imageInfoList);
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(@NonNull Call<JSONResponse> call, @NonNull Throwable t) {
-                view.displayError(t.getMessage());
-            }
-        });
+                @Override
+                public void onFailure(@NonNull Call<JSONResponse> call, @NonNull Throwable t) {
+                    view.displayError(t.getMessage());
+                }
+            });
+        } else {
+            view.restoreState(savedInstanceState);
+        }
+    }
+
+    @Override
+    public void onActivitySaveInstanceState(Bundle outState) {
+        view.recordState(outState);
+    }
+
+    @Override
+    public void onActivityDestroy() {
+        view.destroy();
     }
 }

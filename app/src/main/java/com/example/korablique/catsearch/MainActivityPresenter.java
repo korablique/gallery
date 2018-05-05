@@ -1,8 +1,10 @@
 package com.example.korablique.catsearch;
 
 
-import android.app.Activity;
+import android.os.Bundle;
 
 public interface MainActivityPresenter {
-    void onActivityCreate(Activity activity);
+    void onActivityCreate(Bundle savedInstanceState);
+    void onActivitySaveInstanceState(Bundle outState);
+    void onActivityDestroy();
 }
