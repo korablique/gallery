@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.korablique.catsearch.imagesearch.ImageInfo;
 import com.facebook.drawee.drawable.ScalingUtils;
@@ -53,8 +52,13 @@ public class MainActivityViewImpl implements MainActivityView {
     }
 
     @Override
-    public void displayError(String message) {
-        Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
+    public void displayConnectivityError() {
+        activity.findViewById(R.id.no_internet_textview).setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideConnectivityError() {
+        activity.findViewById(R.id.no_internet_textview).setVisibility(View.GONE);
     }
 
     @Override
@@ -99,6 +103,11 @@ public class MainActivityViewImpl implements MainActivityView {
         if (savedState.containsKey(CURRENT_OPENED_IMAGE_POSITION)) {
             displayFullscreenImages(savedState.getInt(CURRENT_OPENED_IMAGE_POSITION));
         }
+    }
+
+    @Override
+    public boolean hasImages() {
+        return adapter.getItemCount() != 0;
     }
 
     private ImageViewer.OnImageChangeListener getImageChangeListener(View overlayView) {

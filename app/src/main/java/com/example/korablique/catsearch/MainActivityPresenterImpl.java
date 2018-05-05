@@ -1,6 +1,12 @@
 package com.example.korablique.catsearch;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
@@ -13,39 +19,49 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
+
 public class MainActivityPresenterImpl implements MainActivityPresenter {
     private MainActivityModel model;
     private MainActivityView view;
+    private Context context;
+    // needed to avoid multiple loading starts
+    private boolean waitingResponse;
 
-    public MainActivityPresenterImpl(MainActivityModel model, MainActivityView view) {
+    public MainActivityPresenterImpl(MainActivityModel model, MainActivityView view, Context context) {
         this.model = model;
         this.view = view;
+        this.context = context;
     }
 
     @Override
     public void onActivityCreate(Bundle savedInstanceState) {
         view.initActivity();
-        view.showProgressBar();
+
+        IntentFilter intentFilter = new IntentFilter(CONNECTIVITY_ACTION);
+        context.registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                ConnectivityManager connectivityManager =
+                        (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+                boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
+                if (isConnected && !view.hasImages() && !waitingResponse) {
+                    loadImages();
+                }
+            }
+        }, intentFilter);
 
         if (savedInstanceState == null) {
-            model.requestImages(new Callback<JSONResponse>() {
-                @Override
-                public void onResponse(@NonNull Call<JSONResponse> call, @NonNull Response<JSONResponse> response) {
-                    if (response.body() != null) {
-                        List<ImageInfo> imageInfoList = response.body().getImageInfoList();
-                        view.showImages(imageInfoList);
-                        view.hideProgressBar();
-                    }
-                }
-
-                @Override
-                public void onFailure(@NonNull Call<JSONResponse> call, @NonNull Throwable t) {
-                    view.displayError(t.getMessage());
-                }
-            });
+            loadImages();
         } else {
             view.hideProgressBar();
             view.restoreState(savedInstanceState);
+            if (!view.hasImages()) {
+                loadImages();
+            }
         }
     }
 
@@ -57,5 +73,29 @@ public class MainActivityPresenterImpl implements MainActivityPresenter {
     @Override
     public void onActivityDestroy() {
         view.destroy();
+    }
+
+    private void loadImages() {
+        waitingResponse = true;
+        view.showProgressBar();
+        view.hideConnectivityError();
+        model.requestImages(new Callback<JSONResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<JSONResponse> call, @NonNull Response<JSONResponse> response) {
+                if (response.body() != null) {
+                    List<ImageInfo> imageInfoList = response.body().getImageInfoList();
+                    view.showImages(imageInfoList);
+                    view.hideProgressBar();
+                }
+                waitingResponse = false;
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<JSONResponse> call, @NonNull Throwable t) {
+                view.hideProgressBar();
+                view.displayConnectivityError();
+                waitingResponse = false;
+            }
+        });
     }
 }

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">CatSearch</string>
     <string name="image_number">%d из %d</string>
+    <string name="no_internet">При загрузке произошла ошибка.\nПроверьте подключение к интернету.</string>
 </resources>

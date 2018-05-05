@@ -6,7 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
     MainActivityPresenterImpl presenter = new MainActivityPresenterImpl(
             new MainActivityModelImpl(),
-            new MainActivityViewImpl(this));
+            new MainActivityViewImpl(this),
+            this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
