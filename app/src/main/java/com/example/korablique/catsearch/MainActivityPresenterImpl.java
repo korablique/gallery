@@ -82,11 +82,13 @@ public class MainActivityPresenterImpl implements MainActivityPresenter {
         model.requestImages(new Callback<JSONResponse>() {
             @Override
             public void onResponse(@NonNull Call<JSONResponse> call, @NonNull Response<JSONResponse> response) {
-                if (response.body() != null) {
-                    List<ImageInfo> imageInfoList = response.body().getImageInfoList();
-                    view.showImages(imageInfoList);
-                    view.hideProgressBar();
+                if (response.body() == null || response.body().getImageInfoList() == null) {
+                    view.displayConnectivityError();
+                    return;
                 }
+                List<ImageInfo> imageInfoList = response.body().getImageInfoList();
+                view.showImages(imageInfoList);
+                view.hideProgressBar();
                 waitingResponse = false;
             }
 
