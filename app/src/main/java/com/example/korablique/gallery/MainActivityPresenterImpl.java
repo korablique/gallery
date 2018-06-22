@@ -1,4 +1,4 @@
-package com.example.korablique.catsearch;
+package com.example.korablique.gallery;
 
 
 import android.content.BroadcastReceiver;
@@ -10,8 +10,8 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.example.korablique.catsearch.imagesearch.ImageInfo;
-import com.example.korablique.catsearch.imagesearch.JSONResponse;
+import com.example.korablique.gallery.imagesearch.ImageInfo;
+import com.example.korablique.gallery.imagesearch.JSONResponse;
 
 import java.util.List;
 

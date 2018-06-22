@@ -1,4 +1,4 @@
-package com.example.korablique.catsearch;
+package com.example.korablique.gallery;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.korablique.catsearch.imagesearch.ImageInfo;
+import com.example.korablique.gallery.imagesearch.ImageInfo;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.stfalcon.frescoimageviewer.ImageViewer;

@@ -1,4 +1,4 @@
-package com.example.korablique.catsearch.imagesearch;
+package com.example.korablique.gallery.imagesearch;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

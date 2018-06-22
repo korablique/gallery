@@ -1,9 +1,9 @@
-package com.example.korablique.catsearch;
+package com.example.korablique.gallery;
 
 
 import android.os.Bundle;
 
-import com.example.korablique.catsearch.imagesearch.ImageInfo;
+import com.example.korablique.gallery.imagesearch.ImageInfo;
 
 import java.util.List;
 

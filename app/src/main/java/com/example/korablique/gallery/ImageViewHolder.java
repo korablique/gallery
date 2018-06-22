@@ -1,4 +1,4 @@
-package com.example.korablique.catsearch;
+package com.example.korablique.gallery;
 
 
 import android.support.v7.widget.RecyclerView;

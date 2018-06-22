@@ -1,4 +1,4 @@
-package com.example.korablique.catsearch;
+package com.example.korablique.gallery;
 
 
 import android.net.Uri;
@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.example.korablique.catsearch.imagesearch.ImageInfo;
+import com.example.korablique.gallery.imagesearch.ImageInfo;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;

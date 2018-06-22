@@ -1,8 +1,8 @@
-package com.example.korablique.catsearch;
+package com.example.korablique.gallery;
 
 import android.app.Application;
 
-import com.example.korablique.catsearch.imagesearch.BingApi;
+import com.example.korablique.gallery.imagesearch.BingApi;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
@@ -10,10 +10,10 @@ import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.korablique.catsearch.imagesearch.BingSearchConstants.HOST;
+import static com.example.korablique.gallery.imagesearch.BingSearchConstants.HOST;
 
 
-public class CatSearchApplication extends Application {
+public class GalleryApplication extends Application {
     private static BingApi bingApi;
     private Retrofit retrofit;
 

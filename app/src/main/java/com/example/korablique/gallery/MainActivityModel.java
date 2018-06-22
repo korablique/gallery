@@ -1,7 +1,7 @@
-package com.example.korablique.catsearch;
+package com.example.korablique.gallery;
 
 
-import com.example.korablique.catsearch.imagesearch.JSONResponse;
+import com.example.korablique.gallery.imagesearch.JSONResponse;
 
 import retrofit2.Callback;
 
