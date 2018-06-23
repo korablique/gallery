@@ -10,11 +10,13 @@ import android.widget.LinearLayout;
 
 import com.example.korablique.gallery.imagesearch.Hit;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.yandex.metrica.YandexMetrica;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ImagesAdapter extends RecyclerView.Adapter<ImageViewHolder> {
+    private static String IMAGE_CLICKED = "IMAGE_CLICKED";
     private List<Hit> hitsList = new ArrayList<>();
     private List<String> largeImagesURLs = new ArrayList<>();
     private FullscreenImageDisplayer imageDisplayer;
@@ -40,6 +42,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImageViewHolder> {
 
         draweeView.setOnClickListener((view) -> {
             imageDisplayer.display(largeImagesURLs, position);
+            YandexMetrica.reportEvent(IMAGE_CLICKED);
         });
     }
 
