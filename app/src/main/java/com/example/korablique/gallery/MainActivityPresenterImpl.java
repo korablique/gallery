@@ -10,7 +10,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.example.korablique.gallery.imagesearch.ImageInfo;
+import com.example.korablique.gallery.imagesearch.Hit;
 import com.example.korablique.gallery.imagesearch.JSONResponse;
 
 import java.util.List;
@@ -82,12 +82,12 @@ public class MainActivityPresenterImpl implements MainActivityPresenter {
         model.requestImages(new Callback<JSONResponse>() {
             @Override
             public void onResponse(@NonNull Call<JSONResponse> call, @NonNull Response<JSONResponse> response) {
-                if (response.body() == null || response.body().getImageInfoList() == null) {
+                if (response.body() == null || response.body().getHits() == null) {
                     view.displayConnectivityError();
                     return;
                 }
-                List<ImageInfo> imageInfoList = response.body().getImageInfoList();
-                view.showImages(imageInfoList);
+                List<Hit> hitsList = response.body().getHits();
+                view.showImages(hitsList);
                 view.hideProgressBar();
                 waitingResponse = false;
             }

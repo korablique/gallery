@@ -1,70 +1,41 @@
 package com.example.korablique.gallery.imagesearch;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class JSONResponse {
-    @SerializedName("_type")
+    @SerializedName("totalHits")
     @Expose
-    private String type;
-
-    @SerializedName("nextOffset")
+    private Integer totalHits;
+    @SerializedName("hits")
     @Expose
-    private Integer nextOffset;
-
-    @SerializedName("totalEstimatedMatches")
+    private List<Hit> hits = null;
+    @SerializedName("total")
     @Expose
-    private Integer totalEstimatedMatches;
+    private Integer total;
 
-    @SerializedName("value")
-    @Expose
-    private List<ImageInfo> imageInfoList = null;
-
-    @SerializedName("webSearchUrl")
-    @Expose
-    private String webSearchUrl;
-
-
-    public String getType() {
-        return type;
+    public Integer getTotalHits() {
+        return totalHits;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTotalHits(Integer totalHits) {
+        this.totalHits = totalHits;
     }
 
-    public Integer getNextOffset() {
-        return nextOffset;
+    public List<Hit> getHits() {
+        return hits;
     }
 
-    public void setNextOffset(Integer nextOffset) {
-        this.nextOffset = nextOffset;
+    public void setHits(List<Hit> hits) {
+        this.hits = hits;
     }
 
-    public Integer getTotalEstimatedMatches() {
-        return totalEstimatedMatches;
+    public Integer getTotal() {
+        return total;
     }
 
-    public void setTotalEstimatedMatches(Integer totalEstimatedMatches) {
-        this.totalEstimatedMatches = totalEstimatedMatches;
+    public void setTotal(Integer total) {
+        this.total = total;
     }
-
-    public List<ImageInfo> getImageInfoList() {
-        return imageInfoList;
-    }
-
-    public void setImageInfoList(List<ImageInfo> imageInfoList) {
-        this.imageInfoList = imageInfoList;
-    }
-
-    public String getWebSearchUrl() {
-        return webSearchUrl;
-    }
-
-    public void setWebSearchUrl(String webSearchUrl) {
-        this.webSearchUrl = webSearchUrl;
-    }
-
 }

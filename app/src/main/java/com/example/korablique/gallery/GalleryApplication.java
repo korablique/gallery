@@ -2,7 +2,7 @@ package com.example.korablique.gallery;
 
 import android.app.Application;
 
-import com.example.korablique.gallery.imagesearch.BingApi;
+import com.example.korablique.gallery.imagesearch.PixabayAPI;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
@@ -10,11 +10,11 @@ import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.korablique.gallery.imagesearch.BingSearchConstants.HOST;
+import static com.example.korablique.gallery.imagesearch.SearchConstants.HOST;
 
 
 public class GalleryApplication extends Application {
-    private static BingApi bingApi;
+    private static PixabayAPI pixabayAPI;
     private Retrofit retrofit;
 
     @Override
@@ -25,7 +25,7 @@ public class GalleryApplication extends Application {
                 .baseUrl(HOST)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        bingApi = retrofit.create(BingApi.class);
+        pixabayAPI = retrofit.create(PixabayAPI.class);
 
         ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
                 .setProgressiveJpegConfig(new SimpleProgressiveJpegConfig())
@@ -35,7 +35,7 @@ public class GalleryApplication extends Application {
         Fresco.initialize(this, config);
     }
 
-    public static BingApi getApi() {
-        return bingApi;
+    public static PixabayAPI getApi() {
+        return pixabayAPI;
     }
 }

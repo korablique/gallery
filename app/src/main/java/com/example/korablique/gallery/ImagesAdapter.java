@@ -8,15 +8,15 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.example.korablique.gallery.imagesearch.ImageInfo;
+import com.example.korablique.gallery.imagesearch.Hit;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ImagesAdapter extends RecyclerView.Adapter<ImageViewHolder> {
-    private List<ImageInfo> imageInfoList = new ArrayList<>();
-    private List<String> fullImagesURLs = new ArrayList<>();
+    private List<Hit> hitsList = new ArrayList<>();
+    private List<String> largeImagesURLs = new ArrayList<>();
     private FullscreenImageDisplayer imageDisplayer;
 
     public ImagesAdapter(FullscreenImageDisplayer imageDisplayer) {
@@ -33,32 +33,32 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImageViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
-        Uri uri = Uri.parse(imageInfoList.get(position).getThumbnailUrl());
+        Uri uri = Uri.parse(hitsList.get(position).getPreviewURL());
         ViewGroup item = holder.getItem();
         SimpleDraweeView draweeView = item.findViewById(R.id.image_view);
         draweeView.setImageURI(uri);
 
         draweeView.setOnClickListener((view) -> {
-            imageDisplayer.display(fullImagesURLs, position);
+            imageDisplayer.display(largeImagesURLs, position);
         });
     }
 
     @Override
     public int getItemCount() {
-        return imageInfoList.size();
+        return hitsList.size();
     }
 
-    public void addItems(List<ImageInfo> imageInfoList) {
-        this.imageInfoList.addAll(imageInfoList);
+    public void addItems(List<Hit> hitsList) {
+        this.hitsList.addAll(hitsList);
         notifyDataSetChanged();
 
-        fullImagesURLs = new ArrayList<>();
-        for (ImageInfo imageInfo : this.imageInfoList) {
-            fullImagesURLs.add(imageInfo.getContentUrl());
+        largeImagesURLs = new ArrayList<>();
+        for (Hit hit : this.hitsList) {
+            largeImagesURLs.add(hit.getLargeImageURL());
         }
     }
 
-    public List<ImageInfo> getImageInfoList() {
-        return imageInfoList;
+    public List<Hit> getHitsList() {
+        return hitsList;
     }
 }

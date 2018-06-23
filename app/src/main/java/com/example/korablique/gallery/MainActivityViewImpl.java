@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.korablique.gallery.imagesearch.ImageInfo;
+import com.example.korablique.gallery.imagesearch.Hit;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.stfalcon.frescoimageviewer.ImageViewer;
@@ -72,14 +72,14 @@ public class MainActivityViewImpl implements MainActivityView {
     }
 
     @Override
-    public void showImages(List<ImageInfo> imageInfoList) {
-        adapter.addItems(imageInfoList);
+    public void showImages(List<Hit> hitsList) {
+        adapter.addItems(hitsList);
     }
 
     private void displayFullscreenImages(int position) {
         List<String> imagesURLs = new ArrayList<>();
-        for (ImageInfo imageInfo : adapter.getImageInfoList()) {
-            imagesURLs.add(imageInfo.getContentUrl());
+        for (Hit hit : adapter.getHitsList()) {
+            imagesURLs.add(hit.getLargeImageURL());
         }
         imageDisplayer.display(imagesURLs, position);
     }
@@ -94,7 +94,7 @@ public class MainActivityViewImpl implements MainActivityView {
         if (currentOpenedImagePosition != null) {
             outState.putInt(CURRENT_OPENED_IMAGE_POSITION, currentOpenedImagePosition);
         }
-        outState.putParcelableArrayList(IMAGE_INFO_LIST, new ArrayList<>(adapter.getImageInfoList()));
+        outState.putParcelableArrayList(IMAGE_INFO_LIST, new ArrayList<>(adapter.getHitsList()));
     }
 
     @Override

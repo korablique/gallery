@@ -6,7 +6,7 @@ import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
 import android.webkit.URLUtil;
 
-import com.example.korablique.gallery.imagesearch.ImageInfo;
+import com.example.korablique.gallery.imagesearch.Hit;
 import com.example.korablique.gallery.imagesearch.JSONResponse;
 
 import junit.framework.Assert;
@@ -22,19 +22,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.korablique.gallery.imagesearch.BingSearchConstants.SEARCH_QUERY;
+import static com.example.korablique.gallery.imagesearch.SearchConstants.SEARCH_QUERY;
+import static com.example.korablique.gallery.imagesearch.SearchConstants.SUBSCRIPTION_KEY_VALUE;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class BingApiTest {
+public class PixabayApiTest {
     @Test
     public void getDataTest() throws InterruptedException {
         final CountDownLatch mutex = new CountDownLatch(1);
-        final List<ImageInfo> imageInfoList = new ArrayList<>();
-        GalleryApplication.getApi().getData(SEARCH_QUERY).enqueue(new Callback<JSONResponse>() {
+        final List<Hit> hitsList = new ArrayList<>();
+        GalleryApplication.getApi().getData(SUBSCRIPTION_KEY_VALUE, SEARCH_QUERY).enqueue(new Callback<JSONResponse>() {
             @Override
             public void onResponse(@NonNull Call<JSONResponse> call, @NonNull Response<JSONResponse> response) {
-                imageInfoList.addAll(response.body().getImageInfoList());
+                hitsList.addAll(response.body().getHits());
                 mutex.countDown();
             }
             @Override
@@ -44,10 +45,10 @@ public class BingApiTest {
         });
         mutex.await();
 
-        Assert.assertFalse(imageInfoList.isEmpty());
-        for (ImageInfo imageInfo : imageInfoList) {
-            Assert.assertTrue(URLUtil.isValidUrl(imageInfo.getContentUrl()));
-            Assert.assertTrue(URLUtil.isValidUrl(imageInfo.getThumbnailUrl()));
+        Assert.assertFalse(hitsList.isEmpty());
+        for (Hit hit : hitsList) {
+            Assert.assertTrue(URLUtil.isValidUrl(hit.getLargeImageURL()));
+            Assert.assertTrue(URLUtil.isValidUrl(hit.getPreviewURL()));
         }
     }
 }
