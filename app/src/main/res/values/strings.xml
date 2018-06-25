@@ -2,4 +2,7 @@
     <string name="app_name">Gallery</string>
     <string name="image_number">%d из %d</string>
     <string name="no_internet">При загрузке произошла ошибка.\nПроверьте подключение к интернету.</string>
+    <string name="gallery">Перейти в галерею</string>
+    <string name="our_apps">Наши приложения</string>
+    <string name="could_not_display_page">Невозможно открыть страницу</string>
 </resources>
