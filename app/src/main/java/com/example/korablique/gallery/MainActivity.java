@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-    MainActivityPresenterImpl presenter = new MainActivityPresenterImpl(
+    private MainActivityPresenterImpl presenter = new MainActivityPresenterImpl(
             new MainActivityModelImpl(),
             new MainActivityViewImpl(this),
             this);

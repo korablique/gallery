@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.korablique.gallery.imagesearch.Hit;
+import com.example.korablique.gallery.imagesearch.ads.AdsController;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.stfalcon.frescoimageviewer.ImageViewer;
@@ -26,6 +27,8 @@ public class MainActivityViewImpl implements MainActivityView {
     @Nullable
     private Integer currentOpenedImagePosition;
     private FullscreenImageDisplayer imageDisplayer;
+    private AdsController adsController;
+
 
     public MainActivityViewImpl(Activity activity) {
         this.activity = activity;
@@ -46,6 +49,8 @@ public class MainActivityViewImpl implements MainActivityView {
         View overlayView = LayoutInflater.from(activity).inflate(R.layout.overlay_view_layout, null);
         imageDisplayer = new FullscreenImageDisplayer(
                 activity, hierarchyBuilder, getImageChangeListener(overlayView), getOnDismissListener(), overlayView);
+
+        adsController = new AdsController(imageDisplayer, activity);
 
         adapter = new ImagesAdapter(imageDisplayer);
         recyclerView.setAdapter(adapter);
@@ -95,6 +100,7 @@ public class MainActivityViewImpl implements MainActivityView {
             outState.putInt(CURRENT_OPENED_IMAGE_POSITION, currentOpenedImagePosition);
         }
         outState.putParcelableArrayList(IMAGE_INFO_LIST, new ArrayList<>(adapter.getHitsList()));
+        adsController.saveState(outState);
     }
 
     @Override
@@ -103,6 +109,7 @@ public class MainActivityViewImpl implements MainActivityView {
         if (savedState.containsKey(CURRENT_OPENED_IMAGE_POSITION)) {
             displayFullscreenImages(savedState.getInt(CURRENT_OPENED_IMAGE_POSITION));
         }
+        adsController.restoreState(savedState);
     }
 
     @Override

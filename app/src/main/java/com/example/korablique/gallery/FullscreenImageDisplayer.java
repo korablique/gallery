@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FullscreenImageDisplayer {
@@ -19,6 +20,10 @@ public class FullscreenImageDisplayer {
     private ImageViewer.OnImageChangeListener onImageChangeListener;
     private ImageViewer.OnDismissListener onDismissListener;
     private View overlayView;
+    public interface PreviewClicksObserver {
+        void onPreviewClicked();
+    }
+    private List<PreviewClicksObserver> observers = new ArrayList<>();
 
     public FullscreenImageDisplayer(Activity activity,
                                     GenericDraweeHierarchyBuilder hierarchyBuilder,
@@ -30,6 +35,7 @@ public class FullscreenImageDisplayer {
         this.onImageChangeListener = onImageChangeListener;
         this.onDismissListener = onDismissListener;
         this.overlayView = overlayView;
+
     }
 
     public void display(
@@ -47,11 +53,19 @@ public class FullscreenImageDisplayer {
                 .setOnDismissListener(onDismissListener)
                 .setOverlayView(overlayView)
                 .show();
+
+        for (PreviewClicksObserver observer : observers) {
+            observer.onPreviewClicked();
+        }
     }
 
     public void destroy() {
         if (imageViewer != null) {
             imageViewer.onDismiss();
         }
+    }
+
+    public void addPreviewClicksObserver(FullscreenImageDisplayer.PreviewClicksObserver observer) {
+        observers.add(observer);
     }
 }
