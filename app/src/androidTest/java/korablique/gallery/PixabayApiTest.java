@@ -1,4 +1,4 @@
-package com.example.korablique.gallery;
+package korablique.gallery;
 
 
 import android.support.annotation.NonNull;
@@ -6,8 +6,8 @@ import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
 import android.webkit.URLUtil;
 
-import com.example.korablique.gallery.imagesearch.Hit;
-import com.example.korablique.gallery.imagesearch.JSONResponse;
+import korablique.gallery.imagesearch.Hit;
+import korablique.gallery.imagesearch.JSONResponse;
 
 import junit.framework.Assert;
 
@@ -22,8 +22,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.korablique.gallery.imagesearch.SearchConstants.SEARCH_QUERY;
-import static com.example.korablique.gallery.imagesearch.SearchConstants.SUBSCRIPTION_KEY_VALUE;
+import static korablique.gallery.imagesearch.SearchConstants.SEARCH_QUERY;
+import static korablique.gallery.imagesearch.SearchConstants.SUBSCRIPTION_KEY_VALUE;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest

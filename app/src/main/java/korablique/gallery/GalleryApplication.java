@@ -18,7 +18,7 @@ import static korablique.gallery.imagesearch.SearchConstants.HOST;
 public class GalleryApplication extends Application {
     private static PixabayAPI pixabayAPI;
     private Retrofit retrofit;
-    private static String YANDEX_METRICA_API_KEY = "8677bcc3-b8db-40c4-b01f-fa748002743c";
+    private static String YANDEX_METRICA_API_KEY = "d332740a-59c8-4c66-a5fb-9884eac210c5";
 
     @Override
     public void onCreate() {
