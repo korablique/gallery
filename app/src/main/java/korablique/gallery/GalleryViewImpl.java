@@ -20,7 +20,7 @@ import korablique.gallery.imagesearch.Hit;
 import korablique.gallery.imagesearch.ads.AdsController;
 
 
-public class MainActivityViewImpl implements MainActivityView {
+public class GalleryViewImpl implements GalleryView {
     private static final String CURRENT_OPENED_IMAGE_POSITION = "CURRENT_OPENED_IMAGE_POSITION";
     private static final String IMAGE_INFO_LIST = "IMAGE_INFO_LIST";
     private Activity activity;
@@ -31,13 +31,13 @@ public class MainActivityViewImpl implements MainActivityView {
     private AdsController adsController;
 
 
-    public MainActivityViewImpl(Activity activity) {
+    public GalleryViewImpl(Activity activity) {
         this.activity = activity;
     }
 
     @Override
     public void initActivity() {
-        activity.setContentView(R.layout.activity_main);
+        activity.setContentView(R.layout.activity_gallery);
 
         RecyclerView recyclerView = activity.findViewById(R.id.images_recycler_view);
         recyclerView.setHasFixedSize(true);

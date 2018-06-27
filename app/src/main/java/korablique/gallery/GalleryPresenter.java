@@ -3,7 +3,7 @@ package korablique.gallery;
 
 import android.os.Bundle;
 
-public interface MainActivityPresenter {
+public interface GalleryPresenter {
     void onActivityCreate(Bundle savedInstanceState);
     void onActivitySaveInstanceState(Bundle outState);
     void onActivityDestroy();

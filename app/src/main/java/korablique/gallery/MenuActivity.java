@@ -18,7 +18,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         findViewById(R.id.gallery).setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, GalleryActivity.class);
             startActivity(intent);
         });
 

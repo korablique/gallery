@@ -7,7 +7,7 @@ import java.util.List;
 
 import korablique.gallery.imagesearch.Hit;
 
-public interface MainActivityView {
+public interface GalleryView {
     void initActivity();
     void displayConnectivityError();
     void hideConnectivityError();

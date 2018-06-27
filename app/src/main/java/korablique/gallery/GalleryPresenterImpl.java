@@ -20,14 +20,14 @@ import retrofit2.Response;
 
 import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 
-public class MainActivityPresenterImpl implements MainActivityPresenter {
-    private MainActivityModel model;
-    private MainActivityView view;
+public class GalleryPresenterImpl implements GalleryPresenter {
+    private GalleryModel model;
+    private GalleryView view;
     private Context context;
     // needed to avoid multiple loading starts
     private boolean waitingResponse;
 
-    public MainActivityPresenterImpl(MainActivityModel model, MainActivityView view, Context context) {
+    public GalleryPresenterImpl(GalleryModel model, GalleryView view, Context context) {
         this.model = model;
         this.view = view;
         this.context = context;
