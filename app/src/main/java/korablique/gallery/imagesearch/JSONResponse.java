@@ -1,8 +1,9 @@
-package com.example.korablique.gallery.imagesearch;
+package korablique.gallery.imagesearch;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class JSONResponse {
     @SerializedName("totalHits")

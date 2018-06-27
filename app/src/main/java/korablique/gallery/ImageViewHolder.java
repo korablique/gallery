@@ -1,4 +1,4 @@
-package com.example.korablique.gallery;
+package korablique.gallery;
 
 
 import android.support.v7.widget.RecyclerView;

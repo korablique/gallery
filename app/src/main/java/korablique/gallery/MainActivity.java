@@ -1,4 +1,4 @@
-package com.example.korablique.gallery;
+package korablique.gallery;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

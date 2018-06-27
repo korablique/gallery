@@ -1,13 +1,14 @@
-package com.example.korablique.gallery.imagesearch.ads;
+package korablique.gallery.imagesearch.ads;
 
 
 import android.content.Context;
 
-import com.example.korablique.gallery.imagesearch.reporting.EventReporter;
 import com.yandex.mobile.ads.AdRequest;
 import com.yandex.mobile.ads.AdRequestError;
 import com.yandex.mobile.ads.InterstitialAd;
 import com.yandex.mobile.ads.InterstitialEventListener;
+
+import korablique.gallery.imagesearch.reporting.EventReporter;
 
 public class AdWrapper {
     public static final String BLOCK_ID_HORIZONTAL = "R-M-DEMO-400x240-context";

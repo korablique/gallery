@@ -1,14 +1,14 @@
-package com.example.korablique.gallery.imagesearch.ads;
+package korablique.gallery.imagesearch.ads;
 
 
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
-import com.example.korablique.gallery.FullscreenImageDisplayer;
+import korablique.gallery.FullscreenImageDisplayer;
 
-import static com.example.korablique.gallery.imagesearch.ads.AdWrapper.BLOCK_ID_HORIZONTAL;
-import static com.example.korablique.gallery.imagesearch.ads.AdWrapper.BLOCK_ID_VERTICAL;
+import static korablique.gallery.imagesearch.ads.AdWrapper.BLOCK_ID_HORIZONTAL;
+import static korablique.gallery.imagesearch.ads.AdWrapper.BLOCK_ID_VERTICAL;
 
 public class AdsController implements FullscreenImageDisplayer.PreviewClicksObserver {
     public static final int CLICKS_BEFORE_SHOWING_AD = 4;

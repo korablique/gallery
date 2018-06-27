@@ -1,4 +1,4 @@
-package com.example.korablique.gallery;
+package korablique.gallery;
 
 
 import android.content.BroadcastReceiver;
@@ -10,11 +10,10 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.example.korablique.gallery.imagesearch.Hit;
-import com.example.korablique.gallery.imagesearch.JSONResponse;
-
 import java.util.List;
 
+import korablique.gallery.imagesearch.Hit;
+import korablique.gallery.imagesearch.JSONResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

@@ -1,4 +1,4 @@
-package com.example.korablique.gallery;
+package korablique.gallery;
 
 
 import android.net.Uri;
@@ -8,11 +8,12 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.example.korablique.gallery.imagesearch.Hit;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import korablique.gallery.imagesearch.Hit;
 
 public class ImagesAdapter extends RecyclerView.Adapter<ImageViewHolder> {
     private List<Hit> hitsList = new ArrayList<>();

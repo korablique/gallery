@@ -1,11 +1,11 @@
-package com.example.korablique.gallery;
+package korablique.gallery;
 
 
 import android.os.Bundle;
 
-import com.example.korablique.gallery.imagesearch.Hit;
-
 import java.util.List;
+
+import korablique.gallery.imagesearch.Hit;
 
 public interface MainActivityView {
     void initActivity();

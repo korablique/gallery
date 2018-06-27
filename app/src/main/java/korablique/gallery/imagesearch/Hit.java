@@ -1,4 +1,4 @@
-package com.example.korablique.gallery.imagesearch;
+package korablique.gallery.imagesearch;
 
 import android.os.Parcel;
 import android.os.Parcelable;

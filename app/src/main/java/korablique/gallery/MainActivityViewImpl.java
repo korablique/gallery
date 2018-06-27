@@ -1,4 +1,4 @@
-package com.example.korablique.gallery;
+package korablique.gallery;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,14 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.korablique.gallery.imagesearch.Hit;
-import com.example.korablique.gallery.imagesearch.ads.AdsController;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import korablique.gallery.imagesearch.Hit;
+import korablique.gallery.imagesearch.ads.AdsController;
 
 
 public class MainActivityViewImpl implements MainActivityView {

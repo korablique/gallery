@@ -1,8 +1,7 @@
-package com.example.korablique.gallery;
+package korablique.gallery;
 
 
-import com.example.korablique.gallery.imagesearch.JSONResponse;
-
+import korablique.gallery.imagesearch.JSONResponse;
 import retrofit2.Callback;
 
 public interface MainActivityModel {

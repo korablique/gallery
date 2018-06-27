@@ -1,4 +1,4 @@
-package com.example.korablique.gallery.imagesearch.reporting;
+package korablique.gallery.imagesearch.reporting;
 
 
 import com.yandex.metrica.YandexMetrica;
